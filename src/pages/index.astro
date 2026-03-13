@@ -81,14 +81,22 @@ const categoriesInfo = [
             {categoryProjects.map((project) => (
               <section class="grid-container project-item">
                 {project.data.floatingCardImage && (
-                  <div class="floating-card" style="position: absolute; left: 20px; top: 120px; width: 308px; z-index: 1; opacity: 0.8; pointer-events: none;">
-                    <img src={resolvePath(project.data.floatingCardImage)} alt="" style="width: 100%;" />
+                  <div class="floating-card" style={`position: absolute; left: 20px; top: 120px; width: ${project.data.floatingCardWidth || 308}px; z-index: 1; opacity: 0.8; pointer-events: none;`}>
+                    {project.data.floatingCardImage.endsWith('.mp4') ? (
+                      <video src={resolvePath(project.data.floatingCardImage)} loop muted playsinline style="width: 100%; display: block;" class="scroll-video" />
+                    ) : (
+                      <img src={resolvePath(project.data.floatingCardImage)} alt="" style="width: 100%;" />
+                    )}
                   </div>
                 )}
                 
                 {project.data.floatingCardImageRight && (
-                  <div class="floating-card-right" style="position: absolute; right: 20px; top: 220px; width: 308px; z-index: 1; opacity: 0.8; pointer-events: none;">
-                    <img src={resolvePath(project.data.floatingCardImageRight)} alt="" style="width: 100%; border-radius: 4px; overflow: hidden;" />
+                  <div class="floating-card-right" style={`position: absolute; right: 20px; top: 220px; width: ${project.data.floatingCardRightWidth || 308}px; z-index: 1; opacity: 0.8; pointer-events: none;`}>
+                    {project.data.floatingCardImageRight.endsWith('.mp4') ? (
+                      <video src={resolvePath(project.data.floatingCardImageRight)} loop muted playsinline style="width: 100%; border-radius: 4px; display: block;" class="scroll-video" />
+                    ) : (
+                      <img src={resolvePath(project.data.floatingCardImageRight)} alt="" style="width: 100%; border-radius: 4px; overflow: hidden;" />
+                    )}
                   </div>
                 )}
 
@@ -124,14 +132,14 @@ const categoriesInfo = [
                   {project.data.maskImage ? (
                     <div class="mockup-mask" style={`-webkit-mask-image: url('${resolvePath(project.data.maskImage)}'); mask-image: url('${resolvePath(project.data.maskImage)}');`}>
                       {project.data.coverImage?.endsWith('.mp4') ? (
-                        <video src={resolvePath(project.data.coverImage)} autoplay loop muted playsinline style="width: 100%; height: auto; display: block;" />
+                        <video src={resolvePath(project.data.coverImage)} loop muted playsinline style="width: 100%; height: auto; display: block;" class="scroll-video" />
                       ) : (
                         <img src={resolvePath(project.data.coverImage)} alt={`${project.data.title} mockup`} />
                       )}
                     </div>
                   ) : (
                     project.data.coverImage?.endsWith('.mp4') ? (
-                      <video src={resolvePath(project.data.coverImage)} autoplay loop muted playsinline style="width: 100%; height: auto; display: block;" />
+                      <video src={resolvePath(project.data.coverImage)} loop muted playsinline style="width: 100%; height: auto; display: block;" class="scroll-video" />
                     ) : (
                       <img src={resolvePath(project.data.coverImage)} alt={`${project.data.title} mockup`} />
                     )
@@ -143,7 +151,7 @@ const categoriesInfo = [
                     {project.data.stackedImages.map(img => (
                       <div class="rounded" style="overflow: hidden; border-radius: 4px; max-width: 100%;">
                         {img.endsWith('.mp4') ? (
-                          <video src={resolvePath(img)} autoplay loop muted playsinline style="max-width: 100%; height: auto; display: block; border-radius: 4px;" />
+                          <video src={resolvePath(img)} loop muted playsinline style="max-width: 100%; height: auto; display: block; border-radius: 4px;" class="scroll-video" />
                         ) : (
                           <img src={resolvePath(img)} alt="" style="max-width: 100%; height: auto; display: block; border-radius: 4px;" />
                         )}
@@ -157,7 +165,7 @@ const categoriesInfo = [
                     {project.data.sideBySideImages.map(img => (
                       <div class={`rounded ${project.data.fitImage ? 'fit-image' : ''}`} style="overflow: hidden; border-radius: 4px; min-width: 0;">
                         {img.endsWith('.mp4') ? (
-                          <video src={resolvePath(img)} autoplay loop muted playsinline style="max-width: 100%; height: auto; display: block; border-radius: 4px;" />
+                          <video src={resolvePath(img)} loop muted playsinline style="max-width: 100%; height: auto; display: block; border-radius: 4px;" class="scroll-video" />
                         ) : (
                           <img src={resolvePath(img)} alt="" style="max-width: 100%; height: auto; display: block; border-radius: 4px;" />
                         )}
@@ -318,6 +326,20 @@ const categoriesInfo = [
         top: 0,
         behavior: 'smooth'
       });
+    });
+  });
+  // 4. Autoplay videos on scroll
+  const videos = document.querySelectorAll('video.scroll-video');
+  
+  videos.forEach((video) => {
+    ScrollTrigger.create({
+      trigger: video,
+      start: "top 95%",    // Play when video enters the viewport
+      end: "bottom 5%",    // Pause when video leaves the viewport
+      onEnter: () => video.play().catch(e => console.log("Autoplay prevented:", e)),
+      onEnterBack: () => video.play().catch(e => console.log("Autoplay prevented:", e)),
+      onLeave: () => video.pause(),
+      onLeaveBack: () => video.pause(),
     });
   });
 </script>
