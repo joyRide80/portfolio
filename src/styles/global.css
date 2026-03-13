@@ -145,19 +145,11 @@ Since sidebar is 120px, right border handles it perfectly */
 
 .sidebar-menu a {
   display: block;
+  color: var(--text-color);
 }
 
 .sidebar-menu a.active {
-  color: var(--text-color);
-}
-
-.sidebar-menu a:not(.active) {
-  color: var(--menu-inactive);
-  transition: color 0.3s ease;
-}
-
-.sidebar-menu a:not(.active):hover {
-  color: var(--text-color);
+  font-weight: bold;
 }
 
 .sidebar-bottom {
@@ -264,6 +256,18 @@ Since sidebar is 120px, right border handles it perfectly */
   width: 100%;
   height: auto;
   display: block;
+}
+
+.project-image-container.fit-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.project-image-container.fit-image img {
+  width: auto;
+  max-width: 100%;
+  border-radius: 4px;
 }
 
 .mockup-mask {

@@ -11,10 +11,10 @@ const lineImgPath = resolvePath('/assets/3a7d7c159699dd28e41256f8b4358aa9b4cb6be
   </div>
   
   <nav class="sidebar-menu">
-    <p class="text-tiny-mono sidebar-menu-title">PROJECTS</p>
-    <a href="#" class="text-tiny active">Fun</a>
-    <a href="#" class="text-tiny">Products</a>
-    <a href="#" class="text-tiny">Brands</a>
+    <p class="text-tiny-mono sidebar-menu-title" style="cursor: pointer;" data-filter="all">PROJECTS</p>
+    <a href="#" class="text-tiny filter-btn" data-filter="fun">Fun</a>
+    <a href="#" class="text-tiny filter-btn" data-filter="projects">Projects</a>
+    <a href="#" class="text-tiny filter-btn" data-filter="brands">Brands</a>
   </nav>
 
   <div class="sidebar-bottom">
@@ -25,14 +25,14 @@ const lineImgPath = resolvePath('/assets/3a7d7c159699dd28e41256f8b4358aa9b4cb6be
 <script>
   import { gsap } from "gsap";
 
-  const menuItems = document.querySelectorAll('.sidebar-menu a:not(.active)');
+  const menuItems = document.querySelectorAll('.sidebar-menu a.filter-btn');
   
   menuItems.forEach((item) => {
     item.addEventListener('mouseenter', () => {
-      gsap.to(item, { x: 8, color: '#000', duration: 0.3, ease: 'power2.out' });
+      gsap.to(item, { x: 8, duration: 0.3, ease: 'power2.out' });
     });
     item.addEventListener('mouseleave', () => {
-      gsap.to(item, { x: 0, color: 'var(--menu-inactive)', duration: 0.3, ease: 'power2.out' });
+      gsap.to(item, { x: 0, duration: 0.3, ease: 'power2.out' });
     });
   });
 </script>

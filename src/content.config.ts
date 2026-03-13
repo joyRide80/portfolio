@@ -15,6 +15,7 @@ const projectCollection = defineCollection({
     role: z.string().optional(),
     alignRight: z.boolean().default(false),
     marginTop: z.number().optional(),
+    fitImage: z.boolean().default(false),
   }),
 });
 

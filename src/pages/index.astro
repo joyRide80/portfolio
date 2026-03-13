@@ -20,8 +20,8 @@ const categoriesInfo = [
   {
     id: 'Fun',
     title: 'FUN',
-    descTitle: 'Games and experiment projects',
-    descText: 'LEARNING THRU PLAY AND INTERACTION'
+    descTitle: 'Experiments & Creative Labs',
+    descText: 'EXPLORING THE EDGE OF INTERACTIVE CODE'
   },
   {
     id: 'Projects',
@@ -104,7 +104,7 @@ const categoriesInfo = [
                   )}
                 </div>
 
-                <div class={`project-image-container ${project.data.alignRight ? 'align-right' : 'rounded'}`} style={project.data.marginTop ? `margin-top: ${project.data.marginTop}px;` : undefined}>
+                <div class={`project-image-container ${project.data.alignRight ? 'align-right' : 'rounded'} ${project.data.fitImage ? 'fit-image' : ''}`} style={project.data.marginTop ? `margin-top: ${project.data.marginTop}px;` : undefined}>
                   {project.data.maskImage ? (
                     <div class="mockup-mask" style={`-webkit-mask-image: url('${resolvePath(project.data.maskImage)}'); mask-image: url('${resolvePath(project.data.maskImage)}');`}>
                       {project.data.coverImage?.endsWith('.mp4') ? (
@@ -161,7 +161,8 @@ const categoriesInfo = [
       opacity: 1, 
       duration: 1, 
       stagger: 0.1,
-      ease: "power3.out" 
+      ease: "power3.out",
+      clearProps: "transform"
     }, "-=0.4"); // start gliding up just as the intro finishes moving
 
   // 2. ScrollTriggers for Projects
@@ -187,7 +188,7 @@ const categoriesInfo = [
     const imgContainer = project.querySelector('.project-image-container');
     const img = imgContainer?.querySelector('img, video');
     
-    if (img) {
+    if (img && !imgContainer.classList.contains('fit-image')) {
       // Scale up slightly so the edges don't show when parallaxing inside the mask
       gsap.set(img, { scale: 1.15, transformOrigin: "center center" });
       
@@ -217,5 +218,47 @@ const categoriesInfo = [
         }
       });
     }
+  });
+
+  // 3. Filtering
+  const filterBtns = document.querySelectorAll('.filter-btn, [data-filter="all"]');
+  const categoryGroups = document.querySelectorAll('.category-group');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const filter = btn.getAttribute('data-filter');
+      
+      // Update active states
+      filterBtns.forEach(b => {
+        if (b.classList.contains('filter-btn')) {
+          b.classList.remove('active');
+        }
+      });
+      if (btn.classList.contains('filter-btn')) {
+        btn.classList.add('active');
+      }
+
+      categoryGroups.forEach(group => {
+        if (filter === 'all') {
+          group.style.display = 'block';
+        } else {
+          if (group.id === `category-${filter}`) {
+            group.style.display = 'block';
+          } else {
+            group.style.display = 'none';
+          }
+        }
+      });
+
+      // Refresh ScrollTrigger to recalculate positions after layout change
+      ScrollTrigger.refresh();
+      
+      // Scroll to top of the content smoothly
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
   });
 </script>
