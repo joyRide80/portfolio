@@ -85,6 +85,12 @@ const categoriesInfo = [
                     <img src={resolvePath(project.data.floatingCardImage)} alt="" style="width: 100%;" />
                   </div>
                 )}
+                
+                {project.data.floatingCardImageRight && (
+                  <div class="floating-card-right" style="position: absolute; right: 20px; top: 220px; width: 308px; z-index: 1; opacity: 0.8; pointer-events: none;">
+                    <img src={resolvePath(project.data.floatingCardImageRight)} alt="" style="width: 100%; border-radius: 4px; overflow: hidden;" />
+                  </div>
+                )}
 
                 <div class="project-name-container">
                   <h2 class="text-h2">{project.data.title}</h2>
@@ -114,7 +120,7 @@ const categoriesInfo = [
                   )}
                 </div>
 
-                <div class={`project-image-container ${project.data.alignRight ? 'align-right' : 'rounded'} ${project.data.fitImage ? 'fit-image' : ''}`} style={project.data.marginTop ? `margin-top: ${project.data.marginTop}px;` : undefined}>
+                <div class={`project-image-container ${project.data.alignRight ? 'align-right' : 'rounded'} ${project.data.smallCover ? 'small-cover' : ''} ${project.data.fitImage ? 'fit-image' : ''}`} style={project.data.marginTop ? `margin-top: ${project.data.marginTop}px;` : undefined}>
                   {project.data.maskImage ? (
                     <div class="mockup-mask" style={`-webkit-mask-image: url('${resolvePath(project.data.maskImage)}'); mask-image: url('${resolvePath(project.data.maskImage)}');`}>
                       {project.data.coverImage?.endsWith('.mp4') ? (
@@ -131,6 +137,34 @@ const categoriesInfo = [
                     )
                   )}
                 </div>
+
+                {project.data.stackedImages && project.data.stackedImages.length > 0 && (
+                  <div class={`project-extra-images stacked-images ${project.data.alignRight ? 'align-right' : ''}`}>
+                    {project.data.stackedImages.map(img => (
+                      <div class="rounded" style="overflow: hidden; border-radius: 4px; max-width: 100%;">
+                        {img.endsWith('.mp4') ? (
+                          <video src={resolvePath(img)} autoplay loop muted playsinline style="max-width: 100%; height: auto; display: block; border-radius: 4px;" />
+                        ) : (
+                          <img src={resolvePath(img)} alt="" style="max-width: 100%; height: auto; display: block; border-radius: 4px;" />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {project.data.sideBySideImages && project.data.sideBySideImages.length > 0 && (
+                  <div class={`project-extra-images side-by-side-images ${project.data.alignRight ? 'align-right' : ''}`}>
+                    {project.data.sideBySideImages.map(img => (
+                      <div class={`rounded ${project.data.fitImage ? 'fit-image' : ''}`} style="overflow: hidden; border-radius: 4px; min-width: 0;">
+                        {img.endsWith('.mp4') ? (
+                          <video src={resolvePath(img)} autoplay loop muted playsinline style="max-width: 100%; height: auto; display: block; border-radius: 4px;" />
+                        ) : (
+                          <img src={resolvePath(img)} alt="" style="max-width: 100%; height: auto; display: block; border-radius: 4px;" />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </section>
             ))}
 
@@ -180,7 +214,7 @@ const categoriesInfo = [
   
   projects.forEach((project) => {
     // Select the elements we want to stagger in
-    const elements = project.querySelectorAll('.project-meta, .project-name-container, .project-image-container, .floating-card');
+    const elements = project.querySelectorAll('.project-meta, .project-name-container, .project-image-container, .floating-card, .floating-card-right');
 
     gsap.from(elements, {
       y: 80,
@@ -219,6 +253,21 @@ const categoriesInfo = [
     if (floatingCard) {
       gsap.to(floatingCard, {
         y: -50, // Move up as user scrolls down
+        ease: "none",
+        scrollTrigger: {
+          trigger: project,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+    }
+
+    // Parallax for right floating background card
+    const floatingCardRight = project.querySelector('.floating-card-right');
+    if (floatingCardRight) {
+      gsap.to(floatingCardRight, {
+        y: -70, // Move up slightly faster/different rate than left card
         ease: "none",
         scrollTrigger: {
           trigger: project,
