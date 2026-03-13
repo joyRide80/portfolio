@@ -1,0 +1,313 @@
+:root {
+  --bg-color: #F0EFEB;
+  --text-color: #000000;
+  --text-muted: #444444;
+  --menu-inactive: #bbb9b9;
+
+  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-serif: "EB Garamond", serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  --h2-size: 50px;
+  --h3-size: 30px;
+  --hero-size: 84px;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-sans);
+  margin: 0;
+  padding: 0;
+  overflow-x: clip;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.text-hero {
+  font-family: var(--font-serif);
+  font-size: clamp(48px, 6vw, var(--hero-size));
+  line-height: 0.85; 
+  letter-spacing: -0.03em;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.text-h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 4vw, var(--h2-size));
+  line-height: 1.12; 
+  letter-spacing: -0.03em;
+  font-weight: 300;
+}
+
+.text-h3 {
+  font-family: var(--font-sans);
+  font-size: clamp(20px, 2.5vw, var(--h3-size));
+  line-height: 1.06;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.text-body-bold {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.text-body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.text-tiny {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.text-body-mono {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.text-tiny-mono {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.site-wrapper {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 120px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 28px 0px 40px 7px;
+}
+
+/* The vertical line from Figma at left 121px. 
+Since sidebar is 120px, right border handles it perfectly */
+.sidebar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 100%;
+  background-image: url('/assets/3a7d7c159699dd28e41256f8b4358aa9b4cb6be6.svg');
+  background-repeat: repeat-y;
+}
+
+
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 42vh;
+  transform: translateY(-50%);
+}
+
+.sidebar-menu-title {
+  margin-bottom: 12px;
+}
+
+.sidebar-menu a {
+  display: block;
+}
+
+.sidebar-menu a.active {
+  color: var(--text-color);
+}
+
+.sidebar-menu a:not(.active) {
+  color: var(--menu-inactive);
+  transition: color 0.3s ease;
+}
+
+.sidebar-menu a:not(.active):hover {
+  color: var(--text-color);
+}
+
+.sidebar-bottom {
+  margin-top: auto;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px 24px;
+  /* Max width constraints can be added here if needed, but requested full width */
+  display: flex;
+  flex-direction: column;
+}
+
+/* 12 Column grid container for sections */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+/* Layout specific */
+.header-section {
+  padding-top: 0;
+  margin-bottom: 25vh;
+}
+
+.header-title {
+  grid-column: 1 / 9; /* Changed back to 9 to cover the first 9 columns */
+  text-align: center;
+}
+
+.header-meta {
+  grid-column: 9 / 13;
+  text-align: left;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.category-header {
+  margin-bottom: 80px;
+}
+
+.category-title {
+  grid-column: 1 / 5;
+}
+
+.category-desc {
+  grid-column: 5 / 9;
+}
+
+.category-desc-title {
+  margin-bottom: 8px;
+}
+
+.project-item {
+  margin-bottom: 120px;
+  position: relative;
+  align-items: baseline;
+}
+
+.project-meta {
+  grid-column: 9 / 13;
+  z-index: 2;
+  position: sticky;
+  top: 3vh;
+  margin-top: 0px; /* Slight nudge to align paragraph top with title baseline */
+}
+
+.project-name-container {
+  grid-column: 5 / 9;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  z-index: 2;
+  position: sticky;
+  top: 3vh;
+}
+
+.project-year {
+  margin-left: 0;
+  margin-top: 8px;
+}
+
+.project-image-container {
+  grid-column: 4 / 12;
+  margin-top: 40px;
+  position: relative;
+}
+
+.project-image-container.align-right {
+  grid-column: 5 / 13;
+}
+
+.project-image-container.rounded,
+.floating-card {
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.project-image-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.mockup-mask {
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+}
+
+@media (max-width: 1024px) {
+  .header-title { grid-column: 1 / 13; margin-bottom: 20px; }
+  .header-meta { grid-column: 1 / 13; text-align: left; justify-content: flex-start; }
+  
+  .category-title { grid-column: 1 / 13; margin-bottom: 16px; }
+  .category-desc { grid-column: 1 / 13; }
+  
+  .project-meta { grid-column: 1 / 13; margin-bottom: 24px; }
+  .project-name-container { grid-column: 1 / 13; }
+  .project-image-container { grid-column: 1 / 13; }
+}
+
+@media (max-width: 768px) {
+  .site-wrapper {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding: 20px;
+    border-right: none;
+    border-bottom: 1px solid #000;
+  }
+  .sidebar::after {
+    display: none;
+  }
+  .sidebar-menu {
+    margin-top: 20px;
+    flex-direction: row;
+    gap: 16px;
+  }
+  .sidebar-bottom {
+    margin-top: 20px;
+  }
+}

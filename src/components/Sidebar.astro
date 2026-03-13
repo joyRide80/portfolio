@@ -1,0 +1,35 @@
+---
+// src/components/Sidebar.astro
+---
+
+<aside class="sidebar">
+  <div class="sidebar-top">
+    <p class="text-body-bold">Joy Object</p>
+  </div>
+  
+  <nav class="sidebar-menu">
+    <p class="text-tiny-mono sidebar-menu-title">PROJECTS</p>
+    <a href="#" class="text-tiny active">Fun</a>
+    <a href="#" class="text-tiny">Products</a>
+    <a href="#" class="text-tiny">Brands</a>
+  </nav>
+
+  <div class="sidebar-bottom">
+    <a href="https://www.dropbox.com/scl/fi/z0se0ub2trfwleno83lf6/Joy-CV-April-2024.pdf" target="_blank" rel="noopener noreferrer" class="text-tiny-mono">DOWNLOAD CV</a>
+  </div>
+</aside>
+
+<script>
+  import { gsap } from "gsap";
+
+  const menuItems = document.querySelectorAll('.sidebar-menu a:not(.active)');
+  
+  menuItems.forEach((item) => {
+    item.addEventListener('mouseenter', () => {
+      gsap.to(item, { x: 8, color: '#000', duration: 0.3, ease: 'power2.out' });
+    });
+    item.addEventListener('mouseleave', () => {
+      gsap.to(item, { x: 0, color: 'var(--menu-inactive)', duration: 0.3, ease: 'power2.out' });
+    });
+  });
+</script>
