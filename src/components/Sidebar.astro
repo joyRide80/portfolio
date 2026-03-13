@@ -1,8 +1,11 @@
 ---
 // src/components/Sidebar.astro
+const basePath = import.meta.env.BASE_URL === '/' ? '' : import.meta.env.BASE_URL.replace(/\/$/, '');
+const resolvePath = (p: string) => p ? (p.startsWith('/') ? basePath + p : p) : p;
+const lineImgPath = resolvePath('/assets/3a7d7c159699dd28e41256f8b4358aa9b4cb6be6.svg');
 ---
 
-<aside class="sidebar">
+<aside class="sidebar" style={`--sidebar-line-img: url('${lineImgPath}');`}>
   <div class="sidebar-top">
     <p class="text-body-bold">Joy Object</p>
   </div>

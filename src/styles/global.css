@@ -126,7 +126,7 @@ Since sidebar is 120px, right border handles it perfectly */
   right: 0;
   width: 1px;
   height: 100%;
-  background-image: url('/assets/3a7d7c159699dd28e41256f8b4358aa9b4cb6be6.svg');
+  background-image: var(--sidebar-line-img, none);
   background-repeat: repeat-y;
 }
 
