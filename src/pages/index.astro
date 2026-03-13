@@ -107,10 +107,18 @@ const categoriesInfo = [
                 <div class={`project-image-container ${project.data.alignRight ? 'align-right' : 'rounded'}`} style={project.data.marginTop ? `margin-top: ${project.data.marginTop}px;` : undefined}>
                   {project.data.maskImage ? (
                     <div class="mockup-mask" style={`-webkit-mask-image: url('${resolvePath(project.data.maskImage)}'); mask-image: url('${resolvePath(project.data.maskImage)}');`}>
-                      <img src={resolvePath(project.data.coverImage)} alt={`${project.data.title} mockup`} />
+                      {project.data.coverImage?.endsWith('.mp4') ? (
+                        <video src={resolvePath(project.data.coverImage)} autoplay loop muted playsinline style="width: 100%; height: auto; display: block;" />
+                      ) : (
+                        <img src={resolvePath(project.data.coverImage)} alt={`${project.data.title} mockup`} />
+                      )}
                     </div>
                   ) : (
-                    <img src={resolvePath(project.data.coverImage)} alt={`${project.data.title} mockup`} />
+                    project.data.coverImage?.endsWith('.mp4') ? (
+                      <video src={resolvePath(project.data.coverImage)} autoplay loop muted playsinline style="width: 100%; height: auto; display: block;" />
+                    ) : (
+                      <img src={resolvePath(project.data.coverImage)} alt={`${project.data.title} mockup`} />
+                    )
                   )}
                 </div>
               </section>
@@ -177,7 +185,7 @@ const categoriesInfo = [
 
     // Parallax Effect for the mockup images
     const imgContainer = project.querySelector('.project-image-container');
-    const img = imgContainer?.querySelector('img');
+    const img = imgContainer?.querySelector('img, video');
     
     if (img) {
       // Scale up slightly so the edges don't show when parallaxing inside the mask
