@@ -88,9 +88,19 @@ const categoriesInfo = [
 
                 <div class="project-name-container">
                   <h2 class="text-h2">{project.data.title}</h2>
-                  {project.data.date && (
-                    <span class="text-body-mono project-year">{project.data.date}</span>
-                  )}
+                  <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
+                    {project.data.date && (
+                      <span class="text-body-mono project-year" style="margin-top: 0;">{project.data.date}</span>
+                    )}
+                    {project.data.link && (
+                      <>
+                        <span class="text-body-mono" style="margin-top: 0;">·</span>
+                        <a href={project.data.link} target="_blank" rel="noopener noreferrer" class="text-body-mono hover-underline" style="margin-top: 0; text-decoration: underline; text-underline-offset: 4px;">
+                          Visit Site
+                        </a>
+                      </>
+                    )}
+                  </div>
                 </div>
 
                 <div class="project-meta">

@@ -13,6 +13,7 @@ const projectCollection = defineCollection({
     maskImage: z.string().optional(),
     floatingCardImage: z.string().optional(),
     role: z.string().optional(),
+    link: z.string().optional(),
     alignRight: z.boolean().default(false),
     marginTop: z.number().optional(),
     fitImage: z.boolean().default(false),

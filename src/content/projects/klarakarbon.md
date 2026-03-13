@@ -6,4 +6,5 @@ description: "Building the market's first automated carbon accounting tool for s
 role: "Research / Design System / User Testing / Product Building"
 coverImage: "/assets/klaraGraph.png"
 fitImage: true
+link: "https://klarakarbon.no"
 ---

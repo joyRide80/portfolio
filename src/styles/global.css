@@ -41,6 +41,10 @@ a {
   color: inherit;
 }
 
+a.hover-underline:hover {
+  text-decoration: none !important;
+}
+
 .text-hero {
   font-family: var(--font-serif);
   font-size: clamp(48px, 6vw, var(--hero-size));
